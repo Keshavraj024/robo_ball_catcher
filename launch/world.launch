@@ -1,8 +1,8 @@
 <launch>
 
-    <arg name="world_name" default="$(find-pkg-share robo_ball_catcher)/worlds/empty.world"/>
+    <arg name="world_name" default="$(find-pkg-share robo_ball_catcher)/worlds/task_env.world"/>
     <let name="urdf_path" value="$(find-pkg-share robo_ball_catcher)/urdf/robo_seeker.urdf.xacro" />
-
+    <arg name="rviz_path" default="$(find-pkg-share robo_ball_catcher)/rviz/robo_ball_catcher.rviz"/>
     <node pkg="robot_state_publisher" exec="robot_state_publisher">
         <param name="robot_description" value="$(command 'xacro $(var urdf_path)')" />
     </node>
@@ -12,6 +12,7 @@
         <arg name="use_sim_time" value="true"/>
     </include>
 
-    <node pkg="gazebo_ros" exec="spawn_entity.py" output="screen" args="-topic robot_description -entity robo_seeker" />
+    <node pkg="gazebo_ros" exec="spawn_entity.py" output="screen" args="-topic robot_description -entity robo_seeker -x=-2.5 -y=-3.14" />
 
+    <node pkg="rviz2" exec="rviz2" output="screen" args="-d $(var rviz_path)"/>
 </launch>

@@ -13,6 +13,8 @@ install(DIRECTORY
         launch
         worlds
         urdf
+        meshes
+        rviz
         DESTINATION  share/${PROJECT_NAME})
 
 ament_package()
