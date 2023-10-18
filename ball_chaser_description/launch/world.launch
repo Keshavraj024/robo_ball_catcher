@@ -1,8 +1,8 @@
 <launch>
 
-    <arg name="world_name" default="$(find-pkg-share robo_ball_catcher)/worlds/task_env.world"/>
-    <let name="urdf_path" value="$(find-pkg-share robo_ball_catcher)/urdf/robo_seeker.urdf.xacro" />
-    <arg name="rviz_path" default="$(find-pkg-share robo_ball_catcher)/rviz/robo_ball_catcher.rviz"/>
+    <arg name="world_name" default="$(find-pkg-share ball_chaser_description)/worlds/task_env.world"/>
+    <let name="urdf_path" value="$(find-pkg-share ball_chaser_description)/urdf/robo_seeker.urdf.xacro" />
+    <arg name="rviz_path" default="$(find-pkg-share ball_chaser_description)/rviz/ball_chaser.rviz"/>
     <node pkg="robot_state_publisher" exec="robot_state_publisher">
         <param name="robot_description" value="$(command 'xacro $(var urdf_path)')" />
     </node>

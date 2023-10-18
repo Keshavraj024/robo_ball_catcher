@@ -1,6 +1,6 @@
 <robot name="robo_seeker"
     xmlns:xacro="http://www.ros.org/wiki/xacro">
-    <xacro:include filename="$(find robo_ball_catcher)/urdf/robo_seeker.gazebo" />
+    <xacro:include filename="$(find ball_chaser_description)/urdf/robo_seeker.gazebo" />
 
     <link name="robot_footprint"></link>
 
@@ -113,7 +113,7 @@
         <visual>
             <origin xyz="0 0 0" rpy=" 0 0 0"/>
             <geometry>
-                <mesh filename="package://robo_ball_catcher/meshes/hokuyo.dae"/>
+                <mesh filename="package://ball_chaser_description/meshes/hokuyo.dae"/>
             </geometry>
         </visual>
         <collision>
