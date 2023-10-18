@@ -21,6 +21,9 @@
             <geometry>
                 <box size=".4 .2 .1"/>
             </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1"/>
+            </material>
         </visual>
         <collision name='back_caster_collision'>
             <origin xyz="-0.15 0 -0.05" rpy=" 0 0 0"/>
@@ -55,6 +58,9 @@
             <geometry>
                 <cylinder radius="0.1" length="0.05"/>
             </geometry>
+            <material name="red">
+                <color rgba="1 0 0 1"/>
+            </material>
         </visual>
         <collision>
             <origin xyz="0 0 0" rpy=" 0 1.5707 1.5707"/>
@@ -75,6 +81,7 @@
             <geometry>
                 <cylinder radius="0.1" length="0.05"/>
             </geometry>
+            <material name="red"/>
         </visual>
         <collision>
             <origin xyz="0 0 0" rpy=" 0 1.5707 1.5707"/>
@@ -95,6 +102,9 @@
             <geometry>
                 <box size="0.05 0.05 0.05"/>
             </geometry>
+            <material name="green">
+                <color rgba="0 1 0 1"/>
+            </material>
         </visual>
         <collision>
             <origin xyz="0 0 0" rpy=" 0 0 0"/>
