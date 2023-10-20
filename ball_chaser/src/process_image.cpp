@@ -12,28 +12,29 @@ namespace ball_chaser
     void ProcessImage::processImageCallback(const sensor_msgs::msg::Image &cameraImage)
     {
         bool is_ball_found{false};
-        for (size_t i = 0; i < cameraImage.height * cameraImage.step; i += 3)
+        for (size_t idx = 0; idx < cameraImage.height * cameraImage.step; idx += 3)
         {
-            if ((cameraImage.data.at(i) > 100) && (cameraImage.data.at(i + 1) == 0) && (cameraImage.data.at(i + 2) == 0))
+            if ((cameraImage.data.at(idx) > 100) && (cameraImage.data.at(idx + 1) == 0) && (cameraImage.data.at(idx + 2) == 0))
             {
-                const auto column_val = i % cameraImage.step;
+                const auto idx_column = idx % cameraImage.step;
 
-                if (column_val < cameraImage.step)
+                if (idx_column < cameraImage.step / 3)
                     driveToTaget(0.5, -1);
-                else if (column_val < cameraImage.step * 2)
+                else if (idx_column < ((cameraImage.step / 3))* 2)
                     driveToTaget(0.5, 0);
                 else
                     driveToTaget(0.5, 1);
                 is_ball_found = true;
                 break;
             }
+
         }
         if (!is_ball_found)
         {
             driveToTaget(0, 0);
         }
     }
-    // std::ranges::for_each(cameraImage.data, [](const auto &pixel){if pixel == whitePixel })
+
     void ProcessImage::driveToTaget(const float &linearVel, const float &angularVel)
     {
         auto client = this->create_client<ball_chaser_interface::srv::DriveToTarget>("ball_chaser/command_robot");
@@ -47,6 +48,8 @@ namespace ball_chaser
         request->linear_x = linearVel;
         request->angular_z = angularVel;
         auto future = client->async_send_request(request);
+
+        
     }
 }
 
