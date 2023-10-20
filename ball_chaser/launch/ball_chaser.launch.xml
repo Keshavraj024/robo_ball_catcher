@@ -1,6 +1,7 @@
 <launch>
-
     <node pkg="ball_chaser" exec="drive_bot" output="screen"/>
-
-
+     <node pkg="ball_chaser" exec="process_image" output="screen">
+        <param name="linear_velocity_x" value="0.5"/>
+        <param name="angular_velocity_z" value="0.5"/>
+    </node>
 </launch>

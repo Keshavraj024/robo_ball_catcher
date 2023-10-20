@@ -14,6 +14,7 @@ namespace ball_chaser
         rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr m_cameraSubscriber;
         
         void driveToTaget(const float &linearVel, const float &angularVel);
-        // rclcpp::Client<ball_chaser_interface::srv::DriveToTarget>::SharedPtr m_driveToTargetClient;
+        double m_linearVelocityX;
+        double m_angularVelocityZ;
     };
 }

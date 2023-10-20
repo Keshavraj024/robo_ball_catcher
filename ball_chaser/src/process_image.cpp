@@ -7,6 +7,10 @@ namespace ball_chaser
     ProcessImage::ProcessImage() : Node("process_image")
     {
         m_cameraSubscriber = this->create_subscription<sensor_msgs::msg::Image>("/ball_chaser/camera/image_raw", 0, std::bind(&ProcessImage::processImageCallback, this, _1));
+        this->declare_parameter("linear_velocity_x", 0.1);
+        this->declare_parameter("angular_velocity_z", 0.0);
+        m_linearVelocityX = this->get_parameter("linear_velocity_x").as_double();
+        m_angularVelocityZ = this->get_parameter("angular_velocity_z").as_double();
     }
 
     void ProcessImage::processImageCallback(const sensor_msgs::msg::Image &cameraImage)
@@ -19,15 +23,14 @@ namespace ball_chaser
                 const auto idx_column = idx % cameraImage.step;
 
                 if (idx_column < cameraImage.step / 3)
-                    driveToTaget(0.5, -1);
-                else if (idx_column < ((cameraImage.step / 3))* 2)
-                    driveToTaget(0.5, 0);
+                    driveToTaget(m_linearVelocityX, -m_angularVelocityZ);
+                else if (idx_column < ((cameraImage.step / 3)) * 2)
+                    driveToTaget(m_linearVelocityX, m_angularVelocityZ);
                 else
-                    driveToTaget(0.5, 1);
+                    driveToTaget(m_linearVelocityX, m_angularVelocityZ);
                 is_ball_found = true;
                 break;
             }
-
         }
         if (!is_ball_found)
         {
@@ -48,8 +51,6 @@ namespace ball_chaser
         request->linear_x = linearVel;
         request->angular_z = angularVel;
         auto future = client->async_send_request(request);
-
-        
     }
 }
 
